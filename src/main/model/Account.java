@@ -1,5 +1,7 @@
 package main.model;
 
+import main.exception.InsufficientBalanceException;
+
 public class Account {
     private int accountNumber;
     private String holderName;
@@ -15,7 +17,10 @@ public class Account {
         this.balance += amount;
     }
 
-    public void withdraw(double amount) {
+    public void withdraw(double amount) throws InsufficientBalanceException {
+        if (this.balance < amount) {
+            throw new InsufficientBalanceException(balance, amount);
+        }
         this.balance -= amount;
     }
 
