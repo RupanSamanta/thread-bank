@@ -24,6 +24,13 @@ public class Bank {
         return accounts.get(accountNumber);
     }
 
+    public void showAccounts() {
+        System.out.println("\nAcc. No.\tName\tBalance");
+        accounts.forEach((key, account) -> {
+            System.out.println(key + "\t\t" + account.getHolderName() + "\t" + account.getBalance());
+        });
+    }
+
     public void deposit(int accountNumber, double amount) {
         Account account = this.findAccount(accountNumber);
         account.deposit(amount);
