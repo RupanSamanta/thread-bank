@@ -50,3 +50,20 @@ src/
         ├── InputValidator.java
         └── Constants.java
 ```
+
+```
+                     Bank
+                      │
+             coordinates accounts
+                      │
+                      ▼
+                Transaction
+                /     |      \
+               /      |       \
+              ▼       ▼        ▼
+         Deposit   Withdraw   Transfer
+              \       |       /
+               \      |      /
+                ▼     ▼     ▼
+                  Account
+```
