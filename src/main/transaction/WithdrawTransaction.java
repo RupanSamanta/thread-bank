@@ -5,7 +5,7 @@ import main.exception.InsufficientBalanceException;
 import main.model.Account;
 
 public class WithdrawTransaction extends Transaction {
-    Account account;
+    private Account account;
 
     public WithdrawTransaction(Account account, double amount) {
         super(amount, TransactionType.WITHDRAW);

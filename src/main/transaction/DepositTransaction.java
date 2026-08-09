@@ -11,6 +11,7 @@ public class DepositTransaction extends Transaction {
         this.account = account;
     }
 
+    @Override
     public void execute() {
         this.account.deposit(amount);
     }
