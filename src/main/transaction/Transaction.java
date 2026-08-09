@@ -1,6 +1,7 @@
 package main.transaction;
 
 import main.enums.TransactionType;
+import main.exception.InsufficientBalanceException;
 
 public abstract class Transaction {
     protected double amount;
@@ -11,5 +12,5 @@ public abstract class Transaction {
         this.type = type;
     }
 
-    public abstract void execute();
+    public abstract void execute() throws InsufficientBalanceException;
 }
