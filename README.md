@@ -67,3 +67,12 @@ src/
                 ▼     ▼     ▼
                   Account
 ```
+
+```
+             Transaction
+             (abstract)
+                  │
+       ┌──────────┼──────────┐
+       ▼          ▼          ▼
+    Deposit    Withdraw   Transfer
+```

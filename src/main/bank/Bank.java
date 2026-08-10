@@ -1,9 +1,14 @@
 package main.bank;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import main.exception.InsufficientBalanceException;
 import main.model.Account;
+import main.transaction.DepositTransaction;
+import main.transaction.Transaction;
+import main.transaction.TransferTransaction;
+import main.transaction.WithdrawTransaction;
 
 public class Bank {
     private Map<Integer, Account> accounts;
@@ -25,28 +30,29 @@ public class Bank {
     }
 
     public void showAccounts() {
-        System.out.println("\nAcc. No.\tName\tBalance");
+        System.out.println("\nAcc. No.\tName\t\tBalance");
         accounts.forEach((key, account) -> {
-            System.out.println(key + "\t\t" + account.getHolderName() + "\t" + account.getBalance());
+            System.out.println(key + "\t\t" + account.getHolderName() + "\t\t" + account.getBalance());
         });
     }
 
-    public void deposit(int accountNumber, double amount) {
+    public void deposit(int accountNumber, double amount) throws InsufficientBalanceException {
         Account account = this.findAccount(accountNumber);
-        account.deposit(amount);
+        Transaction transaction = new DepositTransaction(account, amount);
+        transaction.execute();
     }
 
     public void withdraw(int accountNumber, double amount) throws InsufficientBalanceException {
         Account account = this.findAccount(accountNumber);
-        account.withdraw(amount);
+        Transaction transaction = new WithdrawTransaction(account, amount);
+        transaction.execute();
     }
 
     public void transfer(int senderId, int receiverId, double amount) throws InsufficientBalanceException {
         Account sender = this.findAccount(senderId);
         Account receiver = this.findAccount(receiverId);
-
-        sender.withdraw(amount);
-        receiver.deposit(amount);
+        Transaction transaction = new TransferTransaction(sender, receiver, amount);
+        transaction.execute();
     }
 
     public double getBankBalance(int accountNumber) {
