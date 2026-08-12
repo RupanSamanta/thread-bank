@@ -1,8 +1,6 @@
-package main;
-
-import main.bank.Bank;
-import main.exception.InsufficientBalanceException;
-import main.model.Account;
+import bank.Bank;
+import exception.InsufficientBalanceException;
+import model.Account;
 
 import java.util.Scanner;
 

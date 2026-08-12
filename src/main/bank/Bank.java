@@ -1,14 +1,14 @@
-package main.bank;
+package bank;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import main.exception.InsufficientBalanceException;
-import main.model.Account;
-import main.transaction.DepositTransaction;
-import main.transaction.Transaction;
-import main.transaction.TransferTransaction;
-import main.transaction.WithdrawTransaction;
+import exception.InsufficientBalanceException;
+import model.Account;
+import transaction.DepositTransaction;
+import transaction.Transaction;
+import transaction.TransferTransaction;
+import transaction.WithdrawTransaction;
 
 public class Bank {
     private Map<Integer, Account> accounts;

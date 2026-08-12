@@ -1,7 +1,7 @@
-package main.transaction;
+package transaction;
 
-import main.enums.TransactionType;
-import main.model.Account;
+import enums.TransactionType;
+import model.Account;
 
 public class DepositTransaction extends Transaction {
     private Account account;

@@ -1,6 +1,6 @@
-package main.model;
+package model;
 
-import main.exception.InsufficientBalanceException;
+import exception.InsufficientBalanceException;
 
 public class Account {
     private int accountNumber;

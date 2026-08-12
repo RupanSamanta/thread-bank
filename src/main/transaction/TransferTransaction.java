@@ -1,8 +1,8 @@
-package main.transaction;
+package transaction;
 
-import main.enums.TransactionType;
-import main.exception.InsufficientBalanceException;
-import main.model.Account;
+import enums.TransactionType;
+import exception.InsufficientBalanceException;
+import model.Account;
 
 public class TransferTransaction extends Transaction {
     private Account sender;

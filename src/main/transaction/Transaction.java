@@ -1,7 +1,7 @@
-package main.transaction;
+package transaction;
 
-import main.enums.TransactionType;
-import main.exception.InsufficientBalanceException;
+import enums.TransactionType;
+import exception.InsufficientBalanceException;
 
 public abstract class Transaction {
     protected double amount;
