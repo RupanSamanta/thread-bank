@@ -28,11 +28,12 @@ public class Main {
         while (running) {
 
             System.out.println("\n========== THREADBANK ==========");
-            System.out.println("1. Show Accounts");
-            System.out.println("2. Deposit");
-            System.out.println("3. Withdraw");
-            System.out.println("4. Transfer");
-            System.out.println("5. Exit");
+            System.out.println("1. Add Account");
+            System.out.println("2. Show Accounts");
+            System.out.println("3. Deposit");
+            System.out.println("4. Withdraw");
+            System.out.println("5. Transfer");
+            System.out.println("6. Exit");
             System.out.println("-----------------------------------");
 
             System.out.print("Enter choice: ");
@@ -43,10 +44,28 @@ public class Main {
                 switch (choice) {
 
                     case 1:
-                        bank.showAccounts();
+                        System.out.print("Enter account number: ");
+                        int accountNumber = scanner.nextInt();
+
+                        scanner.nextLine(); // Consume the newline character
+                        System.out.print("Enter account holder name: ");
+                        String accountHolder = scanner.nextLine();
+
+                        System.out.print("Enter initial balance: ");
+                        double initialBalance = scanner.nextDouble();
+
+                        scanner.nextLine(); // Consume the newline character
+                        Account newAccount = new Account(accountNumber, accountHolder, initialBalance);
+                        bank.addAccount(newAccount);
+
+                        System.out.println("Account added successfully.");
                         break;
 
                     case 2:
+                        bank.showAccounts();
+                        break;
+
+                    case 3:
                         System.out.print("Enter account number: ");
                         int depositAccount = scanner.nextInt();
 
@@ -58,7 +77,7 @@ public class Main {
                         System.out.println("Deposit successful.");
                         break;
 
-                    case 3:
+                    case 4:
                         System.out.print("Enter account number: ");
                         int withdrawAccount = scanner.nextInt();
 
@@ -70,7 +89,7 @@ public class Main {
                         System.out.println("Withdrawal successful.");
                         break;
 
-                    case 4:
+                    case 5:
                         System.out.print("Enter sender account: ");
                         int sender = scanner.nextInt();
 
@@ -85,7 +104,7 @@ public class Main {
                         System.out.println("Transfer successful.");
                         break;
 
-                    case 5:
+                    case 6:
                         running = false;
                         System.out.println("Thank you for using ThreadBank.");
                         break;
