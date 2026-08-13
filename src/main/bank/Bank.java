@@ -29,6 +29,17 @@ public class Bank {
         return accounts.get(accountNumber);
     }
 
+    public void viewAccountDetails(int accountNumber) {
+        Account account = this.findAccount(accountNumber);
+        if (account != null) {
+            System.out.println("\nAccount Number: " + account.getAccountNumber());
+            System.out.println("Account Holder: " + account.getHolderName());
+            System.out.println("Balance: " + account.getBalance());
+        } else {
+            System.out.println("\nAccount not found.");
+        }
+    }
+    
     public void showAccounts() {
         System.out.println("\nAcc. No.\tName\t\tBalance");
         accounts.forEach((key, account) -> {
