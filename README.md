@@ -27,6 +27,7 @@ A console-based Java banking transaction simulator designed to demonstrate Core 
 
 ## Project Structure
 
+```
 thread-bank/
 │
 ├── src/
@@ -53,9 +54,11 @@ thread-bank/
 │
 ├── .gitignore
 └── README.md
+```
 
 ## Architecture
 
+```
                     Bank
                      │
                  Accounts
@@ -69,6 +72,7 @@ thread-bank/
               └───────┼───────┘
                       ▼
                    Account
+```
 
 ## Core Java Concepts
 
@@ -94,6 +98,7 @@ The project covers:
 
 ## Transaction Flow
 
+```
 Main
  │
  ▼
@@ -108,32 +113,38 @@ Transaction
  │
  ▼
 Account
+```
 
 ## Requirements
 
 - JDK 8 or later
 
 Verify the installation:
-
+```java
 java -version
 javac -version
+```
 
 ## Running the Project
 
 From the project root:
 
+```bash
 mkdir -p out
 javac -d out $(find src/main -name "*.java")
+```
 
 Run the application:
 
+```bash
 java -cp out Main
+```
 
 Windows
 
 The project can be compiled and executed using an IDE such as VS Code or IntelliJ IDEA, or by providing the source files to "javac" manually.
 
-Development Status
+## Development Status
 
 - [x] Account model
 - [x] Bank management
@@ -149,10 +160,9 @@ Development Status
 - [ ] Synchronization
 - [ ] Concurrency testing
 
-Purpose
+## Purpose
 
 ThreadBank is an educational project focused on applying Java fundamentals and Advanced Java concepts in a practical application.
 
-License
-
+---
 This project is intended for educational purposes.
