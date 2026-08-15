@@ -13,16 +13,6 @@ public class Main {
         // Create Bank
         Bank bank = new Bank();
 
-        // Create some sample accounts
-        Account account1 = new Account(101, "Rupan", 10000);
-        Account account2 = new Account(102, "Rahul", 8000);
-        Account account3 = new Account(103, "Ananya", 15000);
-
-        // Add accounts to Bank
-        bank.addAccount(account1);
-        bank.addAccount(account2);
-        bank.addAccount(account3);
-
         boolean running = true;
 
         while (running) {
