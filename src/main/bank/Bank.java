@@ -7,17 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bank {
-    private Map<Integer, Account> accounts;
+    private final Map<Integer, Account> accounts;
 
     public Bank() {
         accounts = new HashMap<>();
     }
 
     public void addAccount(Account account) throws AccountAlreadyExistsException {
-        for (Account existingAccount : accounts.values()) {
-            if (existingAccount.getAccountNumber() == account.getAccountNumber()) {
-                throw new AccountAlreadyExistsException(account.getAccountNumber());
-            }
+        if (accounts.containsKey(account.getAccountNumber())) {
+            throw new AccountAlreadyExistsException(account.getAccountNumber());
         }
         accounts.put(account.getAccountNumber(), account);
     }

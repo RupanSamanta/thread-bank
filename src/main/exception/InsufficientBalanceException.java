@@ -1,20 +1,22 @@
 package exception;
 
-public class InsufficientBalanceException extends Exception {
-    private final double requestedAmount;
-    private final double availableBalance;
+import java.math.BigDecimal;
 
-    public InsufficientBalanceException(double availableBalance, double requestedAmount) {
+public class InsufficientBalanceException extends Exception {
+    private final BigDecimal requestedAmount;
+    private final BigDecimal availableBalance;
+
+    public InsufficientBalanceException(BigDecimal availableBalance, BigDecimal requestedAmount) {
         super("Insufficient Balance.");
         this.availableBalance = availableBalance;
         this.requestedAmount = requestedAmount;
     }
 
-    public double getAvailableBalance() {
+    public BigDecimal getAvailableBalance() {
         return this.availableBalance;
     }
 
-    public double getRequestedAmount() {
+    public BigDecimal getRequestedAmount() {
         return this.requestedAmount;
     }
 }

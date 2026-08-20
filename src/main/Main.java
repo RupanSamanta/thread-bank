@@ -1,5 +1,4 @@
 import bank.Bank;
-import exception.*;
 import model.Account;
 
 import java.util.Scanner;
@@ -114,6 +113,9 @@ public class Main {
                 }
 
             } 
+            catch (java.util.InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
             catch (Exception e) {
                 System.out.println("\nSomething went wrong: " + e.getMessage());
             }

@@ -16,12 +16,7 @@ public class TransferTransaction extends Transaction {
 
     @Override
     public void execute() throws InsufficientBalanceException {
-        try {
-            this.sender.withdraw(amount);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
+        this.sender.withdraw(amount);
         this.receiver.deposit(amount);
     }
 }

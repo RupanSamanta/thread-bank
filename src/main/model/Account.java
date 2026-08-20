@@ -1,36 +1,41 @@
 package model;
 
+import java.math.BigDecimal;
 import exception.InsufficientBalanceException;
 
 public class Account {
-    private int accountNumber;
+    private final int accountNumber;
     private String holderName;
-    private double balance;
+    private BigDecimal balance;
 
-    public Account(int accountNumber, String holderName, double balance) {
+    public Account(int accountNumber, String holderName, BigDecimal balance) {
+        if (balance == null || balance.compareTo(BigDecimal.ZERO) < 0 || 
+            holderName == null || holderName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Initial balance must be zero or a finite positive amount.");
+        }
         this.accountNumber = accountNumber;
         this.holderName = holderName;
         this.balance = balance;
     }
 
-    public void deposit(double amount) {
-        if (amount <= 0) {
+    public void deposit(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Deposit amount must be positive.");
         }
-        this.balance += amount;
+        this.balance = this.balance.add(amount);
     }
 
-    public void withdraw(double amount) throws InsufficientBalanceException {
-        if (amount <= 0) {
+    public void withdraw(BigDecimal amount) throws InsufficientBalanceException {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Withdrawal amount must be positive.");
         }
-        if (this.balance < amount) {
+        if (this.balance.compareTo(amount) < 0) {
             throw new InsufficientBalanceException(this.balance, amount);
         }
-        this.balance -= amount;
+        this.balance = this.balance.subtract(amount);
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return this.balance;
     }
 
