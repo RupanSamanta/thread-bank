@@ -28,50 +28,58 @@ A console-based Java banking transaction simulator designed to demonstrate Core 
 ## Project Structure
 
 ```
-thread-bank/
-│
-├── src/
-│   └── main/
-│       ├── Main.java
-│       │
-│       ├── bank/
-│       │   └── Bank.java
-│       │
-│       ├── model/
-│       │   └── Account.java
-│       │
-│       ├── transaction/
-│       │   ├── Transaction.java
-│       │   ├── DepositTransaction.java
-│       │   ├── WithdrawTransaction.java
-│       │   └── TransferTransaction.java
-│       │
-│       ├── exception/
-│       │   └── InsufficientBalanceException.java
-│       │
-│       └── enums/
-│           └── TransactionType.java
-│
-├── .gitignore
-└── README.md
+threadbank/
+└── src/main/
+    ├── Main.java
+    │
+    ├── bank/
+    │   └── Bank.java
+    │
+    ├── enums/
+    │   └── TransactionType.java
+    │
+    ├── exception/
+    │   ├── AccountAlreadyExistsException.java
+    │   ├── AccountNotFoundException.java
+    │   ├── InsufficientBalanceException.java
+    │   └── InvalidTransferException.java
+    │
+    ├── model/
+    │   └── Account.java
+    │
+    └── transaction/
+        ├── Transaction.java
+        ├── DepositTransaction.java
+        ├── TransferTransaction.java
+        └── WithdrawTransaction.java
 ```
 
 ## Architecture
 
 ```
-                    Bank
-                     │
-                 Accounts
-                     │
-                     ▼
-                Transactions
-              /       |       \
-             ▼        ▼        ▼
-         Deposit   Withdraw   Transfer
-             \        |        /
-              └───────┼───────┘
-                      ▼
-                   Account
+                         Main
+                          │
+                          ▼
+                        Bank
+                          │
+              ┌───────────┴───────────┐
+              ▼                       ▼
+          Accounts               Transactions
+              │                       │
+              │              ┌────────┼────────┐
+              │              ▼        ▼        ▼
+              │          Deposit   Withdraw  Transfer
+              │
+              ▼
+           Account
+              │
+              ▼
+        Exception Handling
+              │
+       ┌──────┼───────────────┐
+       ▼      ▼               ▼
+ Account   Insufficient    Invalid
+ NotFound   Balance        Transfer
 ```
 
 ## Core Java Concepts
@@ -140,10 +148,6 @@ Run the application:
 java -cp out Main
 ```
 
-Windows
-
-The project can be compiled and executed using an IDE such as VS Code or IntelliJ IDEA, or by providing the source files to "javac" manually.
-
 ## Development Status
 
 - [x] Account model
@@ -153,7 +157,7 @@ The project can be compiled and executed using an IDE such as VS Code or Intelli
 - [x] Transfer
 - [x] Custom exception
 - [x] Transaction hierarchy
-- [ ] Console menu
+- [x] Console menu
 - [ ] Transaction history
 - [ ] Transaction worker
 - [ ] Multithreading
