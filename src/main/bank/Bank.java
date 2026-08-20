@@ -1,5 +1,6 @@
 package bank;
 
+import java.math.BigDecimal;
 import model.Account;
 import exception.*;
 import transaction.*;
@@ -53,20 +54,20 @@ public class Bank {
         });
     }
 
-    public void deposit(int accountNumber, double amount) throws InsufficientBalanceException, AccountNotFoundException {
+    public void deposit(int accountNumber, BigDecimal amount) throws InsufficientBalanceException, AccountNotFoundException {
         Account account = this.findAccount(accountNumber);
         Transaction transaction = new DepositTransaction(account, amount);
         transaction.execute();
     }
 
-    public void withdraw(int accountNumber, double amount)
+    public void withdraw(int accountNumber, BigDecimal amount)
             throws InsufficientBalanceException, AccountNotFoundException {
         Account account = this.findAccount(accountNumber);
         Transaction transaction = new WithdrawTransaction(account, amount);
         transaction.execute();
     }
 
-    public void transfer(int senderId, int receiverId, double amount) throws InsufficientBalanceException, AccountNotFoundException, InvalidTransferException {
+    public void transfer(int senderId, int receiverId, BigDecimal amount) throws InsufficientBalanceException, AccountNotFoundException, InvalidTransferException {
         if (senderId == receiverId) {
             throw new InvalidTransferException(senderId, receiverId);
         }
@@ -76,7 +77,7 @@ public class Bank {
         transaction.execute();
     }
 
-    public double getBankBalance(int accountNumber) throws AccountNotFoundException {
+    public BigDecimal getBankBalance(int accountNumber) throws AccountNotFoundException {
         Account account = this.findAccount(accountNumber);
         return account.getBalance();
     }

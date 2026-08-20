@@ -1,5 +1,6 @@
 package transaction;
 
+import java.math.BigDecimal;
 import enums.TransactionType;
 import exception.InsufficientBalanceException;
 import model.Account;
@@ -7,7 +8,7 @@ import model.Account;
 public class WithdrawTransaction extends Transaction {
     private Account account;
 
-    public WithdrawTransaction(Account account, double amount) {
+    public WithdrawTransaction(Account account, BigDecimal amount) {
         super(amount, TransactionType.WITHDRAW);
         this.account = account;
     }

@@ -1,6 +1,7 @@
 import bank.Bank;
 import model.Account;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Main {
@@ -39,7 +40,7 @@ public class Main {
                         String accountHolder = scanner.nextLine();
 
                         System.out.print("Enter initial balance: ");
-                        double initialBalance = scanner.nextDouble();
+                        BigDecimal initialBalance = scanner.nextBigDecimal();
 
                         scanner.nextLine(); // Consume the newline character
                         Account newAccount = new Account(accountNumber, accountHolder, initialBalance);
@@ -69,7 +70,7 @@ public class Main {
                         int depositAccount = scanner.nextInt();
 
                         System.out.print("Enter amount: ");
-                        double depositAmount = scanner.nextDouble();
+                        BigDecimal depositAmount = scanner.nextBigDecimal();
 
                         bank.deposit(depositAccount, depositAmount);
 
@@ -81,7 +82,7 @@ public class Main {
                         int withdrawAccount = scanner.nextInt();
 
                         System.out.print("Enter amount: ");
-                        double withdrawAmount = scanner.nextDouble();
+                        BigDecimal withdrawAmount = scanner.nextBigDecimal();
 
                         bank.withdraw(withdrawAccount, withdrawAmount);
 
@@ -96,7 +97,7 @@ public class Main {
                         int receiver = scanner.nextInt();
 
                         System.out.print("Enter amount: ");
-                        double transferAmount = scanner.nextDouble();
+                        BigDecimal transferAmount = scanner.nextBigDecimal();
 
                         bank.transfer(sender, receiver, transferAmount);
 
