@@ -14,20 +14,20 @@ public class Account {
     }
 
     public void deposit(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Deposit amount must be positive.");
+        }
         this.balance += amount;
     }
 
     public void withdraw(double amount) throws InsufficientBalanceException {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Withdrawal amount must be positive.");
+        }
         if (this.balance < amount) {
-            throw new InsufficientBalanceException(balance, amount);
+            throw new InsufficientBalanceException(this.balance, amount);
         }
         this.balance -= amount;
-    }
-
-    public void display() {
-        System.out.println("\tAccount Number: " + this.accountNumber);
-        System.out.println("\tHolder Name: " + this.holderName);
-        System.out.println("\tBalance: ₹" + this.balance);
     }
 
     public double getBalance() {
