@@ -16,12 +16,13 @@ public class Main {
 
             System.out.println("\n===========  THREADBANK  ===========");
             System.out.println("1. Add Account");
-            System.out.println("2. View Account Details");
-            System.out.println("3. Show Accounts");
-            System.out.println("4. Deposit");
-            System.out.println("5. Withdraw");
-            System.out.println("6. Transfer");
-            System.out.println("7. Exit");
+            System.out.println("2. Remove Account");
+            System.out.println("3. View Account Details");
+            System.out.println("4. Show All Accounts");
+            System.out.println("5. Deposit");
+            System.out.println("6. Withdraw");
+            System.out.println("7. Transfer");
+            System.out.println("8. Exit");
             System.out.println("-----------------------------------");
 
             System.out.print("Enter choice: ");
@@ -113,6 +114,9 @@ public class Main {
                 System.out.println(e.getMessage());
             } 
             catch (AccountNotFoundException e) {
+                System.out.println("\n" + e.getMessage());
+            }
+            catch (AccountAlreadyExistsException e) {
                 System.out.println("\n" + e.getMessage());
             }
             catch (Exception e) {

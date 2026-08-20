@@ -13,17 +13,19 @@ public class Bank {
         accounts = new HashMap<>();
     }
 
-    public void addAccount(Account account) {
+    public void addAccount(Account account) throws AccountAlreadyExistsException {
         for (Account existingAccount : accounts.values()) {
             if (existingAccount.getAccountNumber() == account.getAccountNumber()) {
-                System.out.println("Account with number " + account.getAccountNumber() + " already exists.");
-                return;
+                throw new AccountAlreadyExistsException(account.getAccountNumber());
             }
         }
         accounts.put(account.getAccountNumber(), account);
     }
 
-    public void removeAccount(int accountNumber) {
+    public void removeAccount(int accountNumber) throws AccountNotFoundException {
+        if (!accounts.containsKey(accountNumber)) {
+            throw new AccountNotFoundException(accountNumber);
+        }
         accounts.remove(accountNumber);
     }
 
