@@ -57,7 +57,7 @@ public class Main {
                         break;
 
                     case 3:
-                        bank.showAccounts();
+                        bank.showAllAccounts();
                         break;
 
                     case 4:

@@ -1,8 +1,8 @@
 package transaction;
 
 import enums.TransactionType;
-import exception.InsufficientBalanceException;
 import model.Account;
+import exception.*;
 
 public class TransferTransaction extends Transaction {
     private Account sender;
@@ -16,7 +16,12 @@ public class TransferTransaction extends Transaction {
 
     @Override
     public void execute() throws InsufficientBalanceException {
-        this.sender.withdraw(amount);
+        try {
+            this.sender.withdraw(amount);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         this.receiver.deposit(amount);
     }
 }

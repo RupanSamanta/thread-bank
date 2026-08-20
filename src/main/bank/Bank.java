@@ -42,7 +42,7 @@ public class Bank {
         }
     }
     
-    public void showAccounts() {
+    public void showAllAccounts() {
         System.out.println("\nAcc. No.\tName\t\tBalance");
         accounts.forEach((key, account) -> {
             System.out.println(key + "\t\t" + account.getHolderName() + "\t\t" + account.getBalance());
