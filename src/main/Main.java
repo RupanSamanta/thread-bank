@@ -32,9 +32,6 @@ public class Main {
                 int accountNumber;
                 switch (choice) {
                     case 1:
-                        System.out.print("Enter account number: ");
-                        accountNumber = scanner.nextInt();
-
                         scanner.nextLine(); // Consume the newline character
                         System.out.print("Enter account holder name: ");
                         String accountHolder = scanner.nextLine();
@@ -43,10 +40,10 @@ public class Main {
                         BigDecimal initialBalance = scanner.nextBigDecimal();
 
                         scanner.nextLine(); // Consume the newline character
-                        Account newAccount = new Account(accountNumber, accountHolder, initialBalance);
-                        bank.addAccount(newAccount);
+            Account newAccount = bank.createAccount(accountHolder, initialBalance);
 
-                        System.out.println("Account added successfully.");
+            System.out.println("Account added successfully. Account number: "
+                + newAccount.getAccountNumber());
                         break;
 
                     case 2:

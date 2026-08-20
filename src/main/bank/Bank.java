@@ -14,6 +14,22 @@ public class Bank {
         accounts = new HashMap<>();
     }
 
+    public Account createAccount(String holderName, BigDecimal initialBalance)
+            throws AccountAlreadyExistsException {
+        int accountNumber = generateAccountNumber();
+        Account account = new Account(accountNumber, holderName, initialBalance);
+        addAccount(account);
+        return account;
+    }
+
+    private int generateAccountNumber() {
+        int accountNumber;
+        do {
+            accountNumber = 100000 + (int) (Math.random() * 900000);
+        } while (accounts.containsKey(accountNumber));
+        return accountNumber;
+    }
+
     public void addAccount(Account account) throws AccountAlreadyExistsException {
         if (accounts.containsKey(account.getAccountNumber())) {
             throw new AccountAlreadyExistsException(account.getAccountNumber());
