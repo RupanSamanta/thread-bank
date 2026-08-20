@@ -1,14 +1,10 @@
 package bank;
 
+import model.Account;
+import exception.*;
+import transaction.*;
 import java.util.HashMap;
 import java.util.Map;
-
-import exception.InsufficientBalanceException;
-import model.Account;
-import transaction.DepositTransaction;
-import transaction.Transaction;
-import transaction.TransferTransaction;
-import transaction.WithdrawTransaction;
 
 public class Bank {
     private Map<Integer, Account> accounts;
@@ -18,6 +14,12 @@ public class Bank {
     }
 
     public void addAccount(Account account) {
+        for (Account existingAccount : accounts.values()) {
+            if (existingAccount.getAccountNumber() == account.getAccountNumber()) {
+                System.out.println("Account with number " + account.getAccountNumber() + " already exists.");
+                return;
+            }
+        }
         accounts.put(account.getAccountNumber(), account);
     }
 
@@ -49,19 +51,50 @@ public class Bank {
 
     public void deposit(int accountNumber, double amount) throws InsufficientBalanceException {
         Account account = this.findAccount(accountNumber);
+        try {
+            if (account == null) {
+                throw new AccountNotFoundException(accountNumber);
+            }
+        } catch (AccountNotFoundException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         Transaction transaction = new DepositTransaction(account, amount);
         transaction.execute();
     }
 
     public void withdraw(int accountNumber, double amount) throws InsufficientBalanceException {
         Account account = this.findAccount(accountNumber);
+        try {
+            if (account == null) {
+                throw new AccountNotFoundException(accountNumber);
+            }
+        } catch (AccountNotFoundException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         Transaction transaction = new WithdrawTransaction(account, amount);
         transaction.execute();
     }
 
     public void transfer(int senderId, int receiverId, double amount) throws InsufficientBalanceException {
+        if (senderId == receiverId) {
+            System.out.println("Sender and receiver cannot be the same.");
+            return;
+        }
         Account sender = this.findAccount(senderId);
         Account receiver = this.findAccount(receiverId);
+        try {
+            if (sender == null) {
+                throw new AccountNotFoundException(senderId);
+            }
+            if (receiver == null) {
+                throw new AccountNotFoundException(receiverId);
+            }
+        } catch (AccountNotFoundException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         Transaction transaction = new TransferTransaction(sender, receiver, amount);
         transaction.execute();
     }
