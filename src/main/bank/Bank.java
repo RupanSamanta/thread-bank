@@ -27,79 +27,60 @@ public class Bank {
         accounts.remove(accountNumber);
     }
 
-    public Account findAccount(int accountNumber) {
-        return accounts.get(accountNumber);
+    public Account findAccount(int accountNumber) throws AccountNotFoundException {
+        Account account = accounts.get(accountNumber);
+        if (account == null) {
+            throw new AccountNotFoundException(accountNumber);
+        }
+        return account;
     }
 
     public void viewAccountDetails(int accountNumber) {
-        Account account = this.findAccount(accountNumber);
-        if (account != null) {
+        try {
+            Account account = this.findAccount(accountNumber);
             System.out.println("\nAccount Number: " + account.getAccountNumber());
             System.out.println("Account Holder: " + account.getHolderName());
             System.out.println("Balance: " + account.getBalance());
-        } else {
-            System.out.println("\nAccount not found.");
+        } catch (AccountNotFoundException e) {
+            System.out.println(e.getMessage());
         }
     }
-    
+
     public void showAllAccounts() {
+        if (accounts.isEmpty()) {
+            System.out.println("\nNo accounts found.");
+            return;
+        }
         System.out.println("\nAcc. No.\tName\t\tBalance");
         accounts.forEach((key, account) -> {
             System.out.println(key + "\t\t" + account.getHolderName() + "\t\t" + account.getBalance());
         });
     }
 
-    public void deposit(int accountNumber, double amount) throws InsufficientBalanceException {
+    public void deposit(int accountNumber, double amount) throws InsufficientBalanceException, AccountNotFoundException {
         Account account = this.findAccount(accountNumber);
-        try {
-            if (account == null) {
-                throw new AccountNotFoundException(accountNumber);
-            }
-        } catch (AccountNotFoundException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
         Transaction transaction = new DepositTransaction(account, amount);
         transaction.execute();
     }
 
-    public void withdraw(int accountNumber, double amount) throws InsufficientBalanceException {
+    public void withdraw(int accountNumber, double amount) throws InsufficientBalanceException, AccountNotFoundException {
         Account account = this.findAccount(accountNumber);
-        try {
-            if (account == null) {
-                throw new AccountNotFoundException(accountNumber);
-            }
-        } catch (AccountNotFoundException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
         Transaction transaction = new WithdrawTransaction(account, amount);
         transaction.execute();
     }
 
-    public void transfer(int senderId, int receiverId, double amount) throws InsufficientBalanceException {
+    public void transfer(int senderId, int receiverId, double amount) throws InsufficientBalanceException, AccountNotFoundException {
         if (senderId == receiverId) {
             System.out.println("Sender and receiver cannot be the same.");
             return;
         }
         Account sender = this.findAccount(senderId);
         Account receiver = this.findAccount(receiverId);
-        try {
-            if (sender == null) {
-                throw new AccountNotFoundException(senderId);
-            }
-            if (receiver == null) {
-                throw new AccountNotFoundException(receiverId);
-            }
-        } catch (AccountNotFoundException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
         Transaction transaction = new TransferTransaction(sender, receiver, amount);
         transaction.execute();
     }
 
-    public double getBankBalance(int accountNumber) {
+    public double getBankBalance(int accountNumber) throws AccountNotFoundException {
         Account account = this.findAccount(accountNumber);
         return account.getBalance();
     }

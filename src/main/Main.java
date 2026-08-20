@@ -1,22 +1,20 @@
 import bank.Bank;
-import exception.InsufficientBalanceException;
+import exception.*;
 import model.Account;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
 
         // Create Bank
         Bank bank = new Bank();
 
         boolean running = true;
-
         while (running) {
 
-            System.out.println("\n========== THREADBANK ==========");
+            System.out.println("\n===========  THREADBANK  ===========");
             System.out.println("1. Add Account");
             System.out.println("2. View Account Details");
             System.out.println("3. Show Accounts");
@@ -27,9 +25,9 @@ public class Main {
             System.out.println("-----------------------------------");
 
             System.out.print("Enter choice: ");
-            int choice = scanner.nextInt();
 
             try {
+                int choice = scanner.nextInt();
                 int accountNumber;
                 switch (choice) {
                     case 1:
@@ -109,15 +107,16 @@ public class Main {
 
                 }
 
-            } catch (InsufficientBalanceException e) {
-
-                System.out.println("Transaction failed.");
+            } 
+            catch (InsufficientBalanceException e) {
+                System.out.println("\nTransaction failed.");
                 System.out.println(e.getMessage());
-
-            } catch (Exception e) {
-
-                System.out.println("Something went wrong: " + e.getMessage());
-
+            } 
+            catch (AccountNotFoundException e) {
+                System.out.println("\n" + e.getMessage());
+            }
+            catch (Exception e) {
+                System.out.println("\nSomething went wrong: " + e.getMessage());
             }
         }
 
