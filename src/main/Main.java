@@ -52,14 +52,20 @@ public class Main {
                     case 2:
                         System.out.print("Enter account number: ");
                         accountNumber = scanner.nextInt();
-                        bank.viewAccountDetails(accountNumber);
+                        bank.removeAccount(accountNumber);
                         break;
 
                     case 3:
-                        bank.showAllAccounts();
+                        System.out.print("Enter account number: ");
+                        accountNumber = scanner.nextInt();
+                        bank.viewAccountDetails(accountNumber);
                         break;
 
                     case 4:
+                        bank.showAllAccounts();
+                        break;
+
+                    case 5:
                         System.out.print("Enter account number: ");
                         int depositAccount = scanner.nextInt();
 
@@ -71,7 +77,7 @@ public class Main {
                         System.out.println("Deposit successful.");
                         break;
 
-                    case 5:
+                    case 6:
                         System.out.print("Enter account number: ");
                         int withdrawAccount = scanner.nextInt();
 
@@ -83,7 +89,7 @@ public class Main {
                         System.out.println("Withdrawal successful.");
                         break;
 
-                    case 6:
+                    case 7:
                         System.out.print("Enter sender account: ");
                         int sender = scanner.nextInt();
 
@@ -98,27 +104,16 @@ public class Main {
                         System.out.println("Transfer successful.");
                         break;
 
-                    case 7:
+                    case 8:
                         running = false;
                         System.out.println("Thank you for using ThreadBank.");
                         break;
 
                     default:
                         System.out.println("Invalid choice.");
-
                 }
 
             } 
-            catch (InsufficientBalanceException e) {
-                System.out.println("\nTransaction failed.");
-                System.out.println(e.getMessage());
-            } 
-            catch (AccountNotFoundException e) {
-                System.out.println("\n" + e.getMessage());
-            }
-            catch (AccountAlreadyExistsException e) {
-                System.out.println("\n" + e.getMessage());
-            }
             catch (Exception e) {
                 System.out.println("\nSomething went wrong: " + e.getMessage());
             }

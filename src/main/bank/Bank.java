@@ -37,15 +37,11 @@ public class Bank {
         return account;
     }
 
-    public void viewAccountDetails(int accountNumber) {
-        try {
-            Account account = this.findAccount(accountNumber);
-            System.out.println("\nAccount Number: " + account.getAccountNumber());
-            System.out.println("Account Holder: " + account.getHolderName());
-            System.out.println("Balance: " + account.getBalance());
-        } catch (AccountNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+    public void viewAccountDetails(int accountNumber) throws AccountNotFoundException {
+        Account account = this.findAccount(accountNumber);
+        System.out.println("\nAccount Number: " + account.getAccountNumber());
+        System.out.println("Account Holder: " + account.getHolderName());
+        System.out.println("Balance: " + account.getBalance());
     }
 
     public void showAllAccounts() {
@@ -65,16 +61,16 @@ public class Bank {
         transaction.execute();
     }
 
-    public void withdraw(int accountNumber, double amount) throws InsufficientBalanceException, AccountNotFoundException {
+    public void withdraw(int accountNumber, double amount)
+            throws InsufficientBalanceException, AccountNotFoundException {
         Account account = this.findAccount(accountNumber);
         Transaction transaction = new WithdrawTransaction(account, amount);
         transaction.execute();
     }
 
-    public void transfer(int senderId, int receiverId, double amount) throws InsufficientBalanceException, AccountNotFoundException {
+    public void transfer(int senderId, int receiverId, double amount) throws InsufficientBalanceException, AccountNotFoundException, InvalidTransferException {
         if (senderId == receiverId) {
-            System.out.println("Sender and receiver cannot be the same.");
-            return;
+            throw new InvalidTransferException(senderId, receiverId);
         }
         Account sender = this.findAccount(senderId);
         Account receiver = this.findAccount(receiverId);
