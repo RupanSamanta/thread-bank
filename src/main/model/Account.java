@@ -1,6 +1,8 @@
 package model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import exception.InsufficientBalanceException;
 
 public class Account {
@@ -9,6 +11,7 @@ public class Account {
     private BigDecimal balance;
 
     public Account(int accountNumber, String holderName, BigDecimal balance) {
+        balance = normalizeCurrency(balance);
         if (balance == null || balance.compareTo(BigDecimal.ZERO) < 0 || 
             holderName == null || holderName.trim().isEmpty()) {
             throw new IllegalArgumentException("Initial balance must be zero or a finite positive amount.");
@@ -19,14 +22,16 @@ public class Account {
     }
 
     public void deposit(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+        amount = normalizeCurrency(amount);
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Deposit amount must be positive.");
         }
         this.balance = this.balance.add(amount);
     }
 
     public void withdraw(BigDecimal amount) throws InsufficientBalanceException {
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+        amount = normalizeCurrency(amount);
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Withdrawal amount must be positive.");
         }
         if (this.balance.compareTo(amount) < 0) {
@@ -37,6 +42,10 @@ public class Account {
 
     public BigDecimal getBalance() {
         return this.balance;
+    }
+
+    private static BigDecimal normalizeCurrency(BigDecimal amount) {
+        return amount == null ? null : amount.setScale(2, RoundingMode.HALF_EVEN);
     }
 
     public int getAccountNumber() {

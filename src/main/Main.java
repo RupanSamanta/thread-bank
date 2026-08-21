@@ -113,6 +113,7 @@ public class Main {
             } 
             catch (java.util.InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a valid number.");
+                scanner.nextLine(); // Clear the invalid input
             }
             catch (Exception e) {
                 System.out.println("\nSomething went wrong: " + e.getMessage());
